@@ -1,0 +1,145 @@
+/* General Container */
+.auth-container {
+    display: flex;
+    height: 100vh;
+    background-color: black;
+    color: white;
+    font-family: Arial, sans-serif;
+  }
+
+  /* Left Section */
+  .auth-left {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .welcome-gif {
+    width: 80%;
+    max-width: 300px;
+    margin-bottom: 20px;
+  }
+  
+  .auth-left h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+  }
+  
+  .auth-left p {
+    font-size: 1.2rem;
+    font-weight: 300;
+  }
+  
+  /* Right Section */
+  .auth-right {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #000000; 
+    padding: 40px;
+  }
+  
+  /* Form */
+  .auth-form {
+    width: 100%;
+    max-width: 700px;
+    background-color: rgb(195, 187, 196);
+    border-radius: 8px;
+    padding: 30px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  }
+  
+  .auth-form h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #070707; 
+  }
+  
+  .auth-form input {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    font-size: 1rem;
+  }
+  
+  .auth-form button {
+    width: 100%;
+    padding: 12px;
+    background-color: #35062f; 
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+  }
+  
+  .auth-form button:hover {
+    background-color: #96558d; /* Even darker lilac */
+  }
+  
+  /* Toggle Text */
+  .toggle-text {
+    text-align: center;
+    margin-top: 15px;
+    font-size: 0.9rem;
+  }
+  
+  .toggle-link {
+    color: #35062f;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+  .toggle-link:hover {
+    text-decoration: underline;
+  }
+
+  /* Adjust for small screens */
+@media (max-width: 768px) {
+    .auth-container {
+      flex-direction: column;
+    }
+  
+    .auth-left, .auth-right {
+      flex: none;
+      width: 100%;
+    }
+  
+    .auth-left {
+      padding: 20px;
+    }
+  
+    .auth-right {
+      padding: 20px;
+    }
+  
+    .welcome-gif {
+      width: 60%; /* Smaller GIF on small screens */
+    }
+  
+    .auth-form {
+      padding: 20px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .auth-left h1 {
+      font-size: 1.8rem;
+    }
+  
+    .auth-left p {
+      font-size: 1rem;
+    }
+  
+    .auth-form input, .auth-form button {
+      font-size: 0.9rem;
+      padding: 10px;
+    }
+  }  
