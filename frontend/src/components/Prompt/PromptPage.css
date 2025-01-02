@@ -1,0 +1,88 @@
+.prompt-page {
+    text-align: center;
+    background-color: black;
+    color: white;
+    padding: 20px;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.prompt-title {
+    font-size: 3.0rem; /* Bigger font */
+    font-weight: bold;
+    text-decoration: underline;
+    text-decoration-style: solid;
+    color: white;
+    text-shadow: 0 0 10px #9e82aa, 0 0 20px #ae7bc4, 0 0 30px #323033; /* Glowing effect */
+    margin-bottom: 50px; /* Space below title */
+}
+
+.app-image {
+    width: 400px;
+    border-radius: 40px;
+    height: auto;
+    margin: 8px 0;
+    box-shadow: 0 0 10px #724983, 0 0 20px #51375c; /* Glow around the image */
+}
+
+.prompt-question {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    font-weight: bolder;
+}
+
+.moods {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.mood-button {
+    background-color: #260e42;
+    color: white;
+    border: none;
+    font-weight: bold;
+    border-radius: 20px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: transform 0.3s, box-shadow 0.2s, background-color 0.2s;
+}
+
+.mood-button:hover {
+    transform: scale(1.1);
+    background-color: #7b1fa2;
+}
+
+.mood-button.selected {
+    background-color: #ce93d8;
+    color: black;
+}
+
+.quote {
+    font-size: 1.2rem;
+    font-style: italic;
+    margin: 20px 0;
+    color: #ffd500;
+}
+
+.next-button {
+    background-color: #673ab7;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.2s;
+}
+
+.next-button:hover {
+    background-color: #9575cd;
+}

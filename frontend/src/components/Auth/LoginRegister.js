@@ -2,11 +2,13 @@ import React, { useState } from "react";
 import "./Auth.css";
 import welcomeGif from "../../assets/welcome.gif";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const LoginRegister = () => {
   const [isLogin, setIsLogin] = useState(true);
   const [formData, setFormData] = useState({ username: "", password: "", confirmPassword: "" });
   const [message, setMessage] = useState("");
+  const navigate = useNavigate();
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -22,6 +24,11 @@ const LoginRegister = () => {
     try {
       const response = await axios.post(`http://127.0.0.1:5000${endpoint}`, payload);
       setMessage(response.data.message);
+
+      if (isLogin && response.status === 200) {
+        // Redirect to the prompts page after a successful login
+        navigate("/prompt");
+      }
     } catch (error) {
       const errorMsg = error.response?.data?.error || "An error occurred.";
       setMessage(errorMsg);
@@ -31,8 +38,8 @@ const LoginRegister = () => {
   return (
     <div className="auth-container">
       <div className="auth-left">
-      <h1>Haru: Music Heals</h1>
-        <img src={welcomeGif} alt="Welcome" className="welcome-gif" /> 
+        <h1>Haru: Music Heals</h1>
+        <img src={welcomeGif} alt="Welcome" className="welcome-gif" />
         <h1>Welcome Back!</h1>
         <p>Ready for a healing adventure through music...</p>
       </div>
@@ -45,6 +52,7 @@ const LoginRegister = () => {
             placeholder="Username"
             value={formData.username}
             onChange={handleInputChange}
+            required
           />
           <input
             type="password"
@@ -52,6 +60,7 @@ const LoginRegister = () => {
             placeholder="Password"
             value={formData.password}
             onChange={handleInputChange}
+            required
           />
           {!isLogin && (
             <input
@@ -60,6 +69,7 @@ const LoginRegister = () => {
               placeholder="Confirm Password"
               value={formData.confirmPassword}
               onChange={handleInputChange}
+              required
             />
           )}
           <button type="submit">{isLogin ? "Login" : "Register"}</button>
