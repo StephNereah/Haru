@@ -6,7 +6,12 @@ import { useNavigate } from "react-router-dom";
 
 const LoginRegister = () => {
   const [isLogin, setIsLogin] = useState(true);
-  const [formData, setFormData] = useState({ username: "", password: "", confirmPassword: "" });
+  const [formData, setFormData] = useState({
+    username: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+  });
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
 
@@ -19,14 +24,21 @@ const LoginRegister = () => {
     e.preventDefault();
     setMessage("");
     const endpoint = isLogin ? "/login" : "/register";
-    const payload = { username: formData.username, password: formData.password };
+
+    if (!isLogin && formData.password !== formData.confirmPassword) {
+      setMessage("Passwords do not match.");
+      return;
+    }
 
     try {
+      const payload = isLogin
+        ? { username: formData.username, password: formData.password }
+        : { username: formData.username, email: formData.email, password: formData.password };
+
       const response = await axios.post(`http://127.0.0.1:5000${endpoint}`, payload);
       setMessage(response.data.message);
 
       if (isLogin && response.status === 200) {
-        // Redirect to the prompts page after a successful login
         navigate("/prompt");
       }
     } catch (error) {
@@ -54,6 +66,16 @@ const LoginRegister = () => {
             onChange={handleInputChange}
             required
           />
+          {!isLogin && (
+            <input
+              type="email"
+              name="email"
+              placeholder="Email"
+              value={formData.email}
+              onChange={handleInputChange}
+              required
+            />
+          )}
           <input
             type="password"
             name="password"
@@ -75,9 +97,7 @@ const LoginRegister = () => {
           <button type="submit">{isLogin ? "Login" : "Register"}</button>
           <p>{message}</p>
           <p className="toggle-text">
-            {isLogin
-              ? "New to the adventure? "
-              : "Already have an account? "}
+            {isLogin ? "New to the adventure? " : "Already have an account? "}
             <span onClick={() => setIsLogin(!isLogin)} className="toggle-link">
               {isLogin ? "Register" : "Login"}
             </span>
