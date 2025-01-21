@@ -4,7 +4,7 @@ import "./HomePage.css";
 
 const HomePage = () => {
   const [searchResults, setSearchResults] = useState([]);
-  const [recommendedPlaylists] = useState([]);
+  const [recommendedPlaylists, setRecommendedPlaylists] = useState([]);
   const [randomPlaylists, setRandomPlaylists] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
 
