@@ -86,8 +86,15 @@ const HomePage = () => {
           <div className="playlist-grid">
             {searchResults.map((song, index) => (
               <div key={index} className="playlist-card">
+                {song.album_cover && (
+                  <img src={song.album_cover} alt={`${song.name} album cover`} className="album-cover" />
+                )}
                 <p>{song.name} - {song.artist}</p>
-                <a href={song.url} target="_blank" rel="noopener noreferrer">Listen</a>
+                <form action={song.url} target="_blank">
+                  <button type="submit" className="listen-button">
+                    Listen
+                  </button>
+                </form>
               </div>
             ))}
           </div>

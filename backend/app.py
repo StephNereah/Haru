@@ -106,17 +106,17 @@ def search_songs_or_playlists():
         return jsonify({'error': 'Query parameter is required'}), 400
 
     try:
-        results = sp.search(q=query, type='track', limit=20)
+        results = sp.search(q=query, type='track', limit=15)
         songs = [{
             'name': track['name'],
             'artist': ', '.join([artist['name'] for artist in track['artists']]),
-            'url': track['external_urls']['spotify']
+            'url': track['external_urls']['spotify'],
+            'album_cover': track['album']['images'][0]['url'] if track['album']['images'] else None
         } for track in results['tracks']['items']]
 
         return jsonify(songs), 200
     except Exception as e:
         return jsonify({'error': str(e)}), 500
-
 
 if __name__ == '__main__':
     app.run(debug=True)
