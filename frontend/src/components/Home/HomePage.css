@@ -147,4 +147,55 @@ body, html {
     border-radius: 4px;
     cursor: pointer;
   }
-  
+
+  .mood-button {
+    margin-top: 15px;
+    display: block;
+    width: 100%;
+    background-color: #000000;
+    color: white;
+    padding: 0.5px 0.5px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 80%;
+  }
+
+  .mood-button:hover {
+    background-color: #966da8;
+    color: black;
+  }
+
+  .mood-selector {
+    display: block;
+    width: 100%;
+    padding: 1.5rem;
+    background-color: #000000;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bolder;
+    margin-top: 10px;
+  }
+
+  .mood-container {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 10px;
+    gap: 5px;
+  }
+
+  .mood-option {
+    padding: 8px 16px;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  .mood-option:hover {
+    background-color: #b7a5b9;
+    color: black;
+  }

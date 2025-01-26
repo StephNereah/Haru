@@ -1,19 +1,44 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import PlaylistModal from "./PlaylistModal";
 import axios from "axios";
 import "./HomePage.css";
 
+const MoodButton = ({ mood, onClick }) => (
+  <button className="mood-option" onClick={() => onClick(mood)}>
+    {mood}
+  </button>
+);
+
+const PlaylistCard = ({ playlist }) => (
+  <div className="playlist-card">
+    <p>{playlist.name}</p>
+  </div>
+);
+
 const HomePage = () => {
+  const navigate = useNavigate(); // To navigate to PlaybackPage
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [searchResults, setSearchResults] = useState([]);
-  const [recommendedPlaylists, setRecommendedPlaylists] = useState([]);
   const [randomPlaylists, setRandomPlaylists] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
+  const [moodButtonsVisible, setMoodButtonsVisible] = useState(false);
 
-  // Fetch recommended playlists (mocked for simplicity)
+  const userId = 1; // Replace with actual user ID from session/localStorage.
+
   useEffect(() => {
-    axios
-      .get("http://localhost:5000/spotify/random_playlists")
-      .then((res) => setRandomPlaylists(res.data))
-      .catch((err) => console.error(err));
+    const fetchPlaylists = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:5000/spotify/random_playlists`
+        );
+        setRandomPlaylists(response.data);
+      } catch (err) {
+        console.error("Error fetching playlists:", err);
+      }
+    };
+
+    fetchPlaylists();
   }, []);
 
   const handleSearch = (e) => {
@@ -26,9 +51,42 @@ const HomePage = () => {
       .catch((err) => console.error(err));
   };
 
+  const handleMoodClick = async (mood) => {
+    console.log(`Mood selected: ${mood}`);
+    try {
+      const response = await axios.post("http://localhost:5000/spotify/recommend_by_mood", {
+        mood: mood,
+      });
+      if (response.status === 200 && response.data.length > 0) {
+        setSearchResults(response.data);
+      } else {
+        console.error("No mood-based recommendations found");
+        alert("No recommendations found for this mood. Try another mood!");
+      }
+    } catch (error) {
+      console.error("Error fetching mood recommendations:", error);
+      alert("Failed to fetch recommendations. Please try again.");
+    }
+  };
+
+  const handleListenClick = (song) => {
+    navigate("/playback", { state: { song } });
+  };
+
+  const moods = [
+    "Happy",
+    "Sad",
+    "Angry",
+    "Calm",
+    "Excited",
+    "Fear",
+    "Anxiety",
+    "Romantic",
+    "Bored",
+  ];
+
   return (
     <div className="homepage">
-      {/* Top Bar */}
       <header className="top-bar">
         <div className="logo">HARU</div>
         <form className="search-bar" onSubmit={handleSearch}>
@@ -43,60 +101,79 @@ const HomePage = () => {
         <div className="user-icon">👤</div>
       </header>
 
-      {/* Navigation Bar */}
       <aside className="nav-bar">
-        <button>Create Playlist</button>
+        <button onClick={() => setIsModalOpen(true)}>Create Playlist</button>
+        <PlaylistModal
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+        />
+
+        <button
+          className="mood-button"
+          onClick={() => setMoodButtonsVisible((prev) => !prev)}
+        >
+          Select a Mood
+        </button>
+
+        {moodButtonsVisible && (
+          <div className="mood-container">
+            {moods.map((mood, index) => (
+              <MoodButton key={index} mood={mood} onClick={handleMoodClick} />
+            ))}
+          </div>
+        )}
+
         <div className="user-playlists">
           <h4>Your Playlists</h4>
-          {/* Placeholder for user playlists */}
-          <p>No playlists yet</p>
+          {randomPlaylists.length > 0 ? (
+            randomPlaylists.map((playlist) => (
+              <p key={playlist.id}>{playlist.name}</p>
+            ))
+          ) : (
+            <p>No playlists available</p>
+          )}
         </div>
       </aside>
 
-      {/* Main Content */}
       <main className="content">
-        <section className="recommended-playlists">
-          <h2>Recommended Playlists</h2>
-          <div className="playlist-grid">
-            {recommendedPlaylists.map((playlist, index) => (
-              <a key={index} href={playlist.url} target="_blank" rel="noopener noreferrer">
-                <div className="playlist-card">
-                  <p>{playlist.name}</p>
-                </div>
-              </a>
-            ))}
-          </div>
-        </section>
-
         <section className="spotify-playlists">
           <h2>Spotify Playlists</h2>
           <div className="playlist-grid">
-            {randomPlaylists.map((playlist, index) => (
-              <a key={index} href={playlist.url} target="_blank" rel="noopener noreferrer">
-                <div className="playlist-card">
-                  <p>{playlist.name}</p>
-                </div>
-              </a>
+            {randomPlaylists.map((playlist) => (
+              <PlaylistCard key={playlist.id} playlist={playlist} />
             ))}
           </div>
         </section>
 
         <section className="search-results">
-          <h2>Search Results</h2>
+          <h2>
+            {searchResults.length > 0 ? "Song Recommendations" : "No Results Found"}
+          </h2>
           <div className="playlist-grid">
-            {searchResults.map((song, index) => (
-              <div key={index} className="playlist-card">
-                {song.album_cover && (
-                  <img src={song.album_cover} alt={`${song.name} album cover`} className="album-cover" />
-                )}
-                <p>{song.name} - {song.artist}</p>
-                <form action={song.url} target="_blank">
-                  <button type="submit" className="listen-button">
+            {searchResults.length > 0 ? (
+              searchResults.map((song, index) => (
+                <div key={index} className="playlist-card">
+                  {song.album_cover && (
+                    <img
+                      src={song.album_cover}
+                      alt={`${song.name} album cover`}
+                      className="album-cover"
+                    />
+                  )}
+                  <p>
+                    {song.name} - {song.artist}
+                  </p>
+                  <button
+                    onClick={() => handleListenClick(song)}
+                    className="listen-button"
+                  >
                     Listen
                   </button>
-                </form>
-              </div>
-            ))}
+                </div>
+              ))
+            ) : (
+              <p>No search results found</p>
+            )}
           </div>
         </section>
       </main>

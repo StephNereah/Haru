@@ -1,0 +1,15 @@
+.playback-page {
+    text-align: center;
+    padding: 20px;
+  }
+  
+  .player img {
+    width: 300px;
+    height: 300px;
+    margin-bottom: 15px;
+    border-radius: 10px;
+  }
+  
+  .player iframe {
+    margin-top: 5px;
+  }
