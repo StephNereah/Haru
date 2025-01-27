@@ -13,7 +13,6 @@ const LoginRegister = () => {
     confirmPassword: "",
   });
   const [message, setMessage] = useState("");
-  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleInputChange = (e) => {
@@ -24,44 +23,27 @@ const LoginRegister = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setMessage("");
-    setLoading(true); // Start loading
     const endpoint = isLogin ? "/login" : "/register";
 
     if (!isLogin && formData.password !== formData.confirmPassword) {
       setMessage("Passwords do not match.");
-      setLoading(false); // Stop loading
       return;
     }
 
     try {
       const payload = isLogin
         ? { username: formData.username, password: formData.password }
-        : {
-            username: formData.username,
-            email: formData.email,
-            password: formData.password,
-          };
+        : { username: formData.username, email: formData.email, password: formData.password };
 
       const response = await axios.post(`http://127.0.0.1:5000${endpoint}`, payload);
-
       setMessage(response.data.message);
 
       if (isLogin && response.status === 200) {
-        const { user_id } = response.data; // Assuming backend returns user_id
-        localStorage.setItem("userId", user_id); // Save user ID in localStorage
         navigate("/prompt");
-      }
-
-      if (!isLogin && response.status === 201) {
-        setMessage("Registration successful. Please login.");
-        setFormData({ username: "", email: "", password: "", confirmPassword: "" });
-        setIsLogin(true);
       }
     } catch (error) {
       const errorMsg = error.response?.data?.error || "An error occurred.";
       setMessage(errorMsg);
-    } finally {
-      setLoading(false); // Stop loading
     }
   };
 
@@ -109,15 +91,10 @@ const LoginRegister = () => {
               placeholder="Confirm Password"
               value={formData.confirmPassword}
               onChange={handleInputChange}
-              className={
-                !isLogin && formData.password !== formData.confirmPassword ? "error" : ""
-              }
               required
             />
           )}
-          <button type="submit" disabled={loading}>
-            {loading ? "Processing..." : isLogin ? "Login" : "Register"}
-          </button>
+          <button type="submit">{isLogin ? "Login" : "Register"}</button>
           <p>{message}</p>
           <p className="toggle-text">
             {isLogin ? "New to the adventure? " : "Already have an account? "}

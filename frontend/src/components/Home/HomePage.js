@@ -30,7 +30,7 @@ const HomePage = () => {
     const fetchPlaylists = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:5000/spotify/random_playlists`
+          `https://haru-fvda.onrender.com/spotify/random_playlists`
         );
         setRandomPlaylists(response.data);
       } catch (err) {
