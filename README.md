@@ -86,4 +86,4 @@ to improve theirstate of mind.
 
 ## <u>**LICENSE**</u>
 
- This proect is licensed under MIT License.
+ This project is licensed under MIT License.
