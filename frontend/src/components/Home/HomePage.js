@@ -24,7 +24,7 @@ const HomePage = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [moodButtonsVisible, setMoodButtonsVisible] = useState(false);
 
-  //const userId = 1; // Replace with actual user ID from session/localStorage.
+  //gitconst userId = 1; // Replace with actual user ID from session/localStorage.
 
   useEffect(() => {
     const fetchPlaylists = async () => {
