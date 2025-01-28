@@ -15,7 +15,7 @@ CORS(app)
 # Spotify credentials
 CLIENT_ID = "8f3a06ca367a478f8da3afe6e4819c20"
 CLIENT_SECRET = "3497f9fb43674a798eb8c05ffb5c3a0b"
-REDIRECT_URI = "http://localhost:3000/callback"
+REDIRECT_URI = "https://haru-fvda.onrender.com/callback"
 
 sp = spotipy.Spotify(auth_manager=SpotifyOAuth(
     client_id=CLIENT_ID,
