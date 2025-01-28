@@ -24,7 +24,7 @@ const HomePage = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [moodButtonsVisible, setMoodButtonsVisible] = useState(false);
 
-  const userId = 1; // Replace with actual user ID from session/localStorage.
+  //const userId = 1; // Replace with actual user ID from session/localStorage.
 
   useEffect(() => {
     const fetchPlaylists = async () => {
@@ -46,7 +46,7 @@ const HomePage = () => {
     if (!searchTerm) return;
 
     axios
-      .get(`http://localhost:5000/spotify/search?query=${searchTerm}`)
+      .get(`https://haru-fvda.onrender.com/spotify/search?query=${searchTerm}`)
       .then((res) => setSearchResults(res.data))
       .catch((err) => console.error(err));
   };
@@ -54,7 +54,7 @@ const HomePage = () => {
   const handleMoodClick = async (mood) => {
     console.log(`Mood selected: ${mood}`);
     try {
-      const response = await axios.post("http://localhost:5000/spotify/recommend_by_mood", {
+      const response = await axios.post("https://haru-fvda.onrender.com/spotify/recommend_by_mood", {
         mood: mood,
       });
       if (response.status === 200 && response.data.length > 0) {

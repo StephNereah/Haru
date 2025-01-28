@@ -38,7 +38,7 @@ const PromptPage = () => {
 
       try {
         const username = localStorage.getItem("username"); // Retrieve logged-in user
-        await axios.post("http://127.0.0.1:5000/save_moods", {
+        await axios.post("https://haru-fvda.onrender.com/save_moods", {
           username,
           moods: selectedMoods,
         });

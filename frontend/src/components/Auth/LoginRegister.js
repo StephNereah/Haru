@@ -35,7 +35,7 @@ const LoginRegister = () => {
         ? { username: formData.username, password: formData.password }
         : { username: formData.username, email: formData.email, password: formData.password };
 
-      const response = await axios.post(`http://127.0.0.1:5000${endpoint}`, payload);
+      const response = await axios.post(`https://haru-fvda.onrender.com${endpoint}`, payload);
       setMessage(response.data.message);
 
       if (isLogin && response.status === 200) {
