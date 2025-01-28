@@ -133,6 +133,19 @@ const HomePage = () => {
             <p>No playlists available</p>
           )}
         </div>
+
+      {/* Log Out Button */}
+      <button
+        className="logout-button"
+        onClick={() => {
+          // Clear any session or user data if stored in localStorage/sessionStorage
+          localStorage.clear();
+          // Navigate to the LoginRegister page
+          navigate("/");
+        }}
+      >
+        Log Out
+      </button>
       </aside>
 
       <main className="content">

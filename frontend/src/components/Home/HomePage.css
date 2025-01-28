@@ -199,3 +199,22 @@ body, html {
     background-color: #b7a5b9;
     color: black;
   }
+
+  .logout-button {
+    background-color: #000000;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 10px;
+    margin-top: 350px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+  }
+  
+  .logout-button:hover {
+    background-color: #d2b1f0;
+    color: black;
+  }
+  

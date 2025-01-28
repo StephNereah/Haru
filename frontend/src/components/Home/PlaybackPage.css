@@ -1,15 +1,38 @@
 .playback-page {
+    color: white;
     text-align: center;
     padding: 20px;
   }
   
   .player img {
-    width: 300px;
-    height: 300px;
-    margin-bottom: 15px;
+    width: 400px;
+    height: 400px;
+    margin-top: -10px;
+    margin-bottom: -15px;
     border-radius: 10px;
   }
   
   .player iframe {
-    margin-top: 5px;
+    margin-top: -45px;
+  }
+
+  .backhome-button {
+    position: absolute;
+    top: -320px;   /* Adjust the top distance */
+    left: 10px;  /* Adjust the left distance */
+    background-color: #461f52;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 10px;
+    margin-top: 350px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: bolder;
+    transition: background-color 0.3s ease;
+  }
+  
+  .backhome-button:hover {
+    background-color: #d2b1f0;
+    color: black;
   }

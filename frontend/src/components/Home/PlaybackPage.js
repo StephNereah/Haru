@@ -1,9 +1,11 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "./PlaybackPage.css"
 
 const PlaybackPage = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const { song } = location.state || {};
 
   if (!song) {
@@ -19,13 +21,22 @@ const PlaybackPage = () => {
         <p>{song.artist}</p>
         <iframe
           src={`https://open.spotify.com/embed/track/${song.url.split("/").pop()}`}
-          width="300"
-          height="80"
+          width="400"
+          height="150"
           frameBorder="0"
           allow="encrypted-media"
           title={`Spotify player for ${song.name} by ${song.artist}`}
         ></iframe>
       </div>
+
+      <button
+        className="backhome-button"
+        onClick={() => {
+          navigate("/home");
+        }}
+      >
+        RETURN TO HOME
+      </button>
     </div>
   );
 };
