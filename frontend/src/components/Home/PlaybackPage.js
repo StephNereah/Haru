@@ -23,6 +23,7 @@ const PlaybackPage = () => {
           height="80"
           frameBorder="0"
           allow="encrypted-media"
+          title={`Spotify player for ${song.name} by ${song.artist}`}
         ></iframe>
       </div>
     </div>
