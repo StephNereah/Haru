@@ -62,7 +62,9 @@ to improve theirstate of mind.
 
 
 ## <u>**DEPLOYMENT**</u>
-
+ * The app was deployed using:
+  * ** Netlify ** https://haru-music.netlify.app/
+  * ** Render ** https://haru-fvda.onrender.com
 
 
 ## <u>**SETUP INSTRUCTIONS**</u>
