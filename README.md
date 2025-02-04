@@ -13,6 +13,7 @@ to improve theirstate of mind.
 #### <u>**2. Spotify Authorization:**</u>
   * Intergrate with Spotify Web Playback SDK.
   * User can search for music and play tracks directly through Spotify's API.
+  * Requires Spotify callback to connect to authorize user's account.
 
 #### <u>**3. Mood Selection:**</u>
   * Users can select one to three predefined moods upon login.
@@ -75,14 +76,11 @@ to improve theirstate of mind.
  #### **2. Install dependencies:**
    `pip install -r requirements.txt`
 
- #### **3. Setup Spotify API :**
-   * Visit the [Spotify Developer Dashboard](https://developer.spotify.com)
-   * Create an app and add your **client ID** and **client secret** to the .env file.
+ #### **3. Run app locally:**
+    `python app.py`
+    `npm start`
 
-  #### **4. Run app locally:**
-    `flask run`
-
-  #### **5. Access application at :**
+ #### **4. Access application at :**
     http://localhost:5000
 
 
